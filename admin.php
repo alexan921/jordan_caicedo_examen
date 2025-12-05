@@ -1,44 +1,76 @@
 <?php
 session_start();
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-die("Acceso denegado");
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+    die("Acceso denegado");
 }
 require "conexion/conexion.php";
 ?>
 
-
 <h2>Panel Administrador</h2>
 <a href="logout.php">Cerrar sesión</a>
 
-
 <h3>Crear Nota</h3>
-<form action="crear_nota.php" method="POST">
-Estudiante:
-<select name="estudiante_id">
+
+<form method="POST" action="crear_nota.php">
+
+Estudiante:<br>
+<select name="documento" required>
 <?php
-$est = $conexion->query("SELECT id, nombre FROM usuarios WHERE rol='estudiante'");
+$est = $conexion->query("SELECT documento, nombre FROM usuarios WHERE id_rol=2");
 while ($e = $est->fetch_assoc()) {
-echo "<option value='{$e['id']}'>{$e['nombre']}</option>";
+    echo "<option value='{$e['documento']}'>{$e['nombre']} - {$e['documento']}</option>";
 }
 ?>
-</select><br>
+</select><br><br>
 
+Asignatura:<br>
+<select name="id_asignatura" required>
+<?php
+$mat = $conexion->query("SELECT * FROM asignaturas");
+while ($m = $mat->fetch_assoc()) {
+    echo "<option value='{$m['id_asignatura']}'>{$m['asignatura']}</option>";
+}
+?>
+</select><br><br>
 
-Nota: <input type="number" step="0.01" name="nota"><br>
-<button type="submit">Guardar</button>
+Nota:<br>
+<input type="number" name="nota" step="0.1" min="1" max="5" required><br><br>
+
+<button type="submit">Guardar Nota</button>
+
 </form>
 
+<hr>
 
-<h3>Listado de Notas</h3></h3>
+<h3>Listado de Notas</h3>
+
+<table border="1" cellpadding="5">
+<tr>
+    <th>ID</th>
+    <th>Estudiante</th>
+    <th>Asignatura</th>
+    <th>Nota</th>
+    <th>Acciones</th>
+</tr>
+
 <?php
-$sql = "SELECT notas.id, usuarios.nombre, materia, nota FROM notas
-JOIN usuarios ON usuarios.id = notas.estudiante_id";
+$sql = "SELECT n.id_nota, n.nota, u.nombre, a.asignatura 
+        FROM notas n 
+        JOIN usuarios u ON n.documento = u.documento 
+        JOIN asignaturas a ON n.id_asignatura = a.id_asignatura";
+
 $res = $conexion->query($sql);
-
-
 while ($fila = $res->fetch_assoc()) {
-echo "ID: {$fila['id']} - Estudiante: {$fila['nombre']} - Materia: {$fila['materia']} - Nota: {$fila['nota']} ";
-echo " <a href='editar_nota.php?id={$fila['id']}'>Editar</a> ";
-echo " <a href='eliminar_nota.php?id={$fila['id']}'>Eliminar</a><br>";
+    echo "<tr>
+            <td>{$fila['id_nota']}</td>
+            <td>{$fila['nombre']}</td>
+            <td>{$fila['asignatura']}</td>
+            <td>{$fila['nota']}</td>
+            <td>
+                <a href='editar_nota.php?id={$fila['id_nota']}'>Editar</a> |
+                <a href='eliminar_nota.php?id={$fila['id_nota']}'>Eliminar</a>
+            </td>
+          </tr>";
 }
 ?>
+</table>

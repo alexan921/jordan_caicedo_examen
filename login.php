@@ -9,19 +9,23 @@ $sql = "SELECT * FROM usuarios WHERE email='$email' LIMIT 1";
 $result = $conexion->query($sql);
 
 if ($result->num_rows > 0) {
+
     $usuario = $result->fetch_assoc();
 
     if (password_verify($password, $usuario['password'])) {
-        $_SESSION['id'] = $usuario['id'];
-        $_SESSION['rol'] = $usuario['rol'];
 
-        if ($usuario['rol'] == 'admin') {
+        $_SESSION['documento'] = $usuario['documento'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['rol'] = $usuario['id_rol'];
+
+        if ($usuario['id_rol'] == 1) {
             header("Location: admin.php");
         } else {
             header("Location: estudiante.php");
         }
-        exit();
+        exit;
     }
 }
 
 echo "Datos incorrectos. <a href='index.php'>Volver</a>";
+?>

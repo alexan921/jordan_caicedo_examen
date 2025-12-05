@@ -1,12 +1,25 @@
-<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
 
-<form action="login.php" method="POST">
-    <h3>Inicia Sesión</h3>
-    Email: <input type="email" name="email"><br>
-    <br>
-    Contraseña: <input type="password" name="password"><br>
-    <br>
+<h2>Iniciar Sesión</h2>
+
+<form method="POST" action="login.php">
+    Correo:<br>
+    <input type="email" name="email" required><br><br>
+
+    Contraseña:<br>
+    <input type="password" name="password" required><br><br>
+
     <button type="submit">Entrar</button>
 </form>
 
-<a href="registro.php">Registrarse</a>
+<br>
+<a href="registro.php">Registrarme</a>
+
+</body>
+</html>
