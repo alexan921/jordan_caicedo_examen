@@ -15,6 +15,7 @@ require "conexion/conexion.php";
 
 Estudiante:<br>
 <select name="documento" required>
+<option value="" disabled selected>Seleccione un estudiante</option>
 <?php
 $est = $conexion->query("SELECT documento, nombre FROM usuarios WHERE id_rol=2");
 while ($e = $est->fetch_assoc()) {
@@ -25,6 +26,7 @@ while ($e = $est->fetch_assoc()) {
 
 Asignatura:<br>
 <select name="id_asignatura" required>
+<option value="" disabled selected>Seleccione una asignatura</option>
 <?php
 $mat = $conexion->query("SELECT * FROM asignaturas");
 while ($m = $mat->fetch_assoc()) {
