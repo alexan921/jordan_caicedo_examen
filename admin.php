@@ -4,9 +4,9 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     die("Acceso denegado");
 }
 require "conexion/conexion.php";
+echo "<h1>Bienvenido, " . $_SESSION['nombre'] . " tu rol es " . $_SESSION['rol_nombre'] . "</h1>";
 ?>
 
-<h2>Panel Administrador</h2>
 <a href="logout.php">Cerrar sesión</a>
 
 <h3>Crear Nota</h3>

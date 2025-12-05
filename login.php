@@ -17,6 +17,7 @@ if ($result->num_rows > 0) {
         $_SESSION['documento'] = $usuario['documento'];
         $_SESSION['nombre'] = $usuario['nombre'];
         $_SESSION['rol'] = $usuario['id_rol'];
+        $_SESSION['rol_nombre'] = ($usuario['id_rol'] == 1) ? "Administrador" : "Aprendiz";
 
         if ($usuario['id_rol'] == 1) {
             header("Location: admin.php");
@@ -28,4 +29,3 @@ if ($result->num_rows > 0) {
 }
 
 echo "Datos incorrectos. <a href='index.php'>Volver</a>";
-?>

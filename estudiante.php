@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "conexion/conexion.php";
+echo "<h1>Bienvenido, " . $_SESSION['nombre'] . " tu rol es " . $_SESSION['rol_nombre'] . "</h1>";
 
 $documento = $_SESSION['documento'];
 
