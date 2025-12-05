@@ -24,16 +24,6 @@ echo "<option value='{$e['id']}'>{$e['nombre']}</option>";
 </select><br>
 
 
-Materia:
-<select name="materia">
-<option value="Matemáticas">CRUD</option>
-<option value="Español">CSS</option>
-<option value="Ciencias">LARAVEL</option>
-<option value="Sociales">PHP</option>
-<option value="Inglés">FORM</option>
-</select><br>
-
-
 Nota: <input type="number" step="0.01" name="nota"><br>
 <button type="submit">Guardar</button>
 </form>
